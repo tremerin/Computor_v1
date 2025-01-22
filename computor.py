@@ -1,6 +1,6 @@
 import math #raiz cuadrada
 import sys  #pasar argumentos al programa
-import re   #usar expresiones regulares
+import regex
 
 #formula ecuación
 if len(sys.argv) == 4:
@@ -21,17 +21,14 @@ if len(sys.argv) == 4:
 
 
 #computor
-argument_split = sys.argv[1].split("=")
+argument_split = sys.argv[1].split(" =")
 if len(argument_split) != 2:
     print("Error =")
     exit()
 
-first = argument_split[0] 
-print(first)
-second = argument_split[1] 
-print(second)
+first = regex.get_monomials(argument_split[0])
+print(f"-{first}-")
+second = regex.get_monomials(argument_split[1])
+print(f"-{second}-")
 
-#expresiones regulares
-regex = r"m"
-print(re.match(regex, "mmmhola m"))
-print(type(re.findall(regex, "mmmhola m")))
+max_expo = 0
