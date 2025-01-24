@@ -25,14 +25,43 @@ def get_monomials(string:str):
 
 def read_monomial(string:str):
     """
-    obtain the coefficient and exponent of a monomial
+    obtain the sing, the coefficient and exponent of a monomial
     """
-    sign        = r" ?[-+]? ?"
-    coefficient = r"\d+(\.\d+)"
+    sign        = r" ?[+-]? ?"
+    coefficient = r"\d+(\.\d+)?"
     literal     = r" \* X\^"
     exponent    = r"\d+"
-    span = re.match(sign, string)
-    pass
+    leng:int = len(string)
+    parts = list()
+    pos_end:int = 0
+    temp:str = string
+
+    span = re.match(sign, temp)
+    if span.span()[1] == 0:
+        parts.append("+")
+    else:  
+        print(span)
+        pos_end = span.span()[1]
+        parts.append(temp[0:pos_end])
+        temp = temp[pos_end:leng]
+
+    span = re.match(coefficient, temp)
+    pos_end = span.span()[1]
+    parts.append(temp[0:pos_end])
+    temp = temp[pos_end:leng]
+
+    span = re.match(literal, temp)
+    pos_end = span.span()[1]
+    parts.append(temp[0:pos_end])
+    temp = temp[pos_end:leng]
+
+    span = re.match(exponent, temp)
+    pos_end = span.span()[1]
+    parts.append(temp[0:pos_end])
+    temp = temp[pos_end:leng]
+
+    return parts
+
 
 
 #signo, coeficiente, literal, exponente // primer termino = segundo termino

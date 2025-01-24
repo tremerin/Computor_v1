@@ -30,5 +30,6 @@ first = regex.get_monomials(argument_split[0])
 print(f"-{first}-")
 second = regex.get_monomials(argument_split[1])
 print(f"-{second}-")
-
+for monomial in first:
+    print(regex.read_monomial(monomial))
 max_expo = 0
