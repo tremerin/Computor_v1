@@ -7,18 +7,17 @@ def get_monomials(string:str):
     """
     regex = r" ?[+-]? ?\d+(\.\d+)? \* X\^\d+"
     leng:int = len(string)
-    temp:str = string
     monomials = list()
     pos_end:int = 0
 
-    while len(temp) > 0:
-        span = re.match(regex, temp)
+    while len(string) > 0:
+        span = re.match(regex, string)
         if span == None:
                 print("Error: sintaxis")
                 exit()
         pos_end = span.span()[1]
-        monomials.append(temp[span.span()[0]:pos_end])
-        temp = temp[pos_end:leng]
+        monomials.append(string[span.span()[0]:pos_end])
+        string = string[pos_end:leng]
     
     return monomials
 
@@ -29,9 +28,10 @@ def read_monomial(string:str):
     regexs = [r" ?[+-]? ?", #sign
             r"\d+(\.\d+)?", #coefficient
             r" \* X\^",     #literal
-            r"\d+"]         #exponent
+            r"\d+"]         #exponent 
     leng:int = len(string)
     parts = list()
+    value = list()
     pos_end:int = 0
 
     for regex in regexs:
@@ -41,6 +41,12 @@ def read_monomial(string:str):
         else:  
             pos_end = span.span()[1]
             parts.append(string[0:pos_end])
-            string = string[pos_end:leng]       
+            string = string[pos_end:leng]
 
-    return parts
+    if "-" not in parts[0]:
+        value.append(float(parts[1]))
+    else:
+        value.append(float(parts[1]) * -1)
+    value.append(int(parts[3]))
+
+    return value

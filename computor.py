@@ -20,16 +20,16 @@ if len(sys.argv) == 4:
         print(f"x2: {x2}")
 
 
-#computor
+#computor 
 argument_split = sys.argv[1].split(" =")
 if len(argument_split) != 2:
     print("Error =")
     exit()
 
 first = regex.get_monomials(argument_split[0])
-print(f"-{first}-")
+print(f"{first}")
 second = regex.get_monomials(argument_split[1])
-print(f"-{second}-")
+print(f"{second}")
 for monomial in first:
     print(regex.read_monomial(monomial))
 max_expo = 0
