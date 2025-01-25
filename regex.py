@@ -1,6 +1,5 @@
 import re
 
-
 def get_monomials(string:str):
     """
     separates and return a member of an equation by monomials
