@@ -23,6 +23,7 @@ if len(sys.argv) == 4:
 #computor 
 equation_terms = sys.argv[1].split(" =")
 if len(equation_terms) != 2:
+    print(equation_terms)
     print("Error =")
     exit()
 
@@ -41,6 +42,7 @@ for monomial in second:
 
 print(monomials)
 
+#crear reduced_form
 reduced_form = list()
 
 for monomial in monomials:
@@ -52,5 +54,33 @@ for monomial in monomials:
     if new_exponent:
         reduced_form.append(monomial)
 
+#ordenar reduced_form
 print(reduced_form)
-max_expo = 0
+
+
+for i in range(len(reduced_form)):
+    min_exp = reduced_form[i][1]
+    for j in range(len(reduced_form)):
+        if reduced_form[j][1] > min_exp:
+            min_exp = reduced_form[j][1]
+            temp = reduced_form[i]
+            reduced_form[i] = reduced_form[j]
+            reduced_form[j] = temp
+
+
+print(reduced_form)
+print("Reduced form: ", end = "")
+for monomial in reduced_form:
+    sign = "+ "
+    if monomial[0] < 0: sign = "- "
+    coefficient = monomial[0]
+    if monomial[0] % 1 == 0: coefficient = int(monomial[0])
+    print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "")
+print("= 0")
+
+print(f"Polynomial degree: {reduced_form[-1][1]}")
+#comprobar max_expo
+if reduced_form[-1][1] > 2:
+    print("The polynomial degree is strictly greater than 2, I can't solve.")
+    exit()
+
