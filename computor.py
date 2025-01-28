@@ -86,3 +86,12 @@ elif reduced_form[-1][1] == 2:
     second_degree_equation(reduced_form[2][0], reduced_form[1][0], reduced_form[0][0])
 else:   
     print(f"The solution is:\n{(reduced_form[0][0] * -1) / reduced_form[1][0]}")
+
+
+def computor():
+    if len(sys.argv) != 2:
+        print("Error: arguments")
+        exit()
+
+if __name__=="__main__":
+    computor()
