@@ -50,7 +50,6 @@ for monomial in monomials:
 #ordenar reduced_form
 #print(reduced_form)
 
-
 for i in range(len(reduced_form)):
     min_exp = reduced_form[i][1]
     for j in range(len(reduced_form)):
@@ -60,6 +59,13 @@ for i in range(len(reduced_form)):
             reduced_form[i] = reduced_form[j]
             reduced_form[j] = temp
 
+#borrar coeficientes 0
+for monomial in reduced_form:
+    if monomial[0] == 0:
+        reduced_form.remove(monomial)
+if len(reduced_form) == 0:
+    print("Each real number is a solution")
+    exit()
 
 #print(reduced_form)
 print("Reduced form: ", end = "")
