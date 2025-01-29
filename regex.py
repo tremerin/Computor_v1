@@ -12,7 +12,7 @@ def get_monomials(string:str):
     while len(string) > 0:
         span = re.match(regex, string)
         if span == None:
-                print("Error: sintaxis")
+                print("Error: Bad Syntax")
                 exit()
         pos_end = span.span()[1]
         monomials.append(string[span.span()[0]:pos_end])
