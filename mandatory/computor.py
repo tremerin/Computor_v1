@@ -1,6 +1,6 @@
 import math
 import sys  
-import regex
+import regex # type: ignore
 
 def second_degree_equation(a:float, b:float, c:float):
     """
