@@ -1,5 +1,6 @@
 import re
 import sys
+import math
 
 print("test")
 regex = r"([+-])" 
@@ -22,27 +23,26 @@ for string in split_string:
 
 #minimo comun multiplo
 def mcm(nums:list):
-    max_multiplo = nums[0]
-    mach:bool = False
+    nums = list(set(nums))
+    min_multiplo = nums[0]
     if len(nums) == 1:
-        return max_multiplo
-    for i in range(len(nums) - 1):
-        print(i)
-        while mach == False:
-            multiplo = max(max_multiplo, nums[i + 1])
+        return min_multiplo
+    for i in range(len(nums) -1):
+        while True:
+            multiplo = max(min_multiplo, nums[i + 1])
             if multiplo % nums[i] == 0 and multiplo % nums[i + 1] == 0:
-                max_multiplo = multiplo
-                mach = True
+                min_multiplo = multiplo
+                break
             else:
-                max_multiplo += 1
+                min_multiplo += 1
         
-    return max_multiplo
+    return min_multiplo
 
 
 #maximo comun divisor
 def mcd(nums:list):
     pass
 
-nums = [2, 6, 5]
+nums = [2, 6, 4, 5, 2]
 print(f"mcm de: {nums}")
 print(mcm(nums))
