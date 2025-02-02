@@ -21,8 +21,11 @@ for string in split_string:
         print(f"{string}: true")
 
 
-#minimo comun multiplo
-def mcm(nums:list):
+#lcm (minimo comun multiplo)
+def list_lcm(nums:list):
+    """
+    Gets the least common multiple of a list of numbers
+    """
     nums = list(set(nums))
     min_multiplo = nums[0]
     if len(nums) == 1:
@@ -39,10 +42,18 @@ def mcm(nums:list):
     return min_multiplo
 
 
-#maximo comun divisor
-def mcd(nums:list):
-    pass
+#gcd (maximo comun divisor)
+def list_gcd(nums:list):
+    """
+    Gets the greatest common factor of a list of numbers
+    """
+    max_div = nums[0]
+    for num in nums[1:]:
+        print("mcd: ",max_div)
+        max_div = math.gcd(max_div, num)
+    return(num)
 
-nums = [2, 6, 4, 5, 2]
-print(f"mcm de: {nums}")
-print(mcm(nums))
+nums = [12, 36, 42, 51, 24]
+print(f"mcm y mcd de: {nums}")
+print(list_lcm(nums))
+print(list_gcd(nums))
