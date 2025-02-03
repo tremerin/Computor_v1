@@ -13,13 +13,41 @@ if len(sys.argv) == 2:
 
 
 valid = r"\s*\d+(\.\d+)? \* X(?:\^\d+\s*$|\s*$)"
+valid_n = r"\s*\d+\s*$"
+valid2 = r"(?:\s*\d+(\.\d+)? \* X(?:\^\d+\s*$|\s*$)|\s*\d+\s*$|\s*\d+(\.\d+)? \* X \d+\s*$|\s*X\^\d+\s*$)"
 for string in split_string:
-    span = re.match(valid, string)
+    span = re.match(valid2, string)
     if span == None:
         print(f"{string}: false")
     else:
         print(f"{string}: true")
 
+def get_monomial_bonus(string:str):
+    monomials:list
+    regexs = [r"([+-])",                                #sign
+            r"\s*\d+(\.\d+)? \* X(?:\^\d+\s*$|\s*$)",   #complete monomial
+            r"\s*\d+\s*$",                              #only coefficient
+            r"\s*\d+(\.\d+)? \* X \d+\s*$",             #no exponent
+            r"\s*X\^\d+\s*$"]                           #no coefficient
+
+    split_string = [string for string in re.split(regexs[0], string) if string]
+    if split_string[0] not in ["-", "+"]:
+        split_string.insert(0, "+")
+    print("split:", split_string)
+    sign = ""
+    for piece in split_string:
+        for regex in regexs:
+            #print(f"{piece} try [{regex}]")
+            span = re.match(regex, piece)
+            if span != None:
+                print(f"{piece} mach[{regex}]")
+                break
+
+    #return monomials
+
+
+print("--- get monomials ---")
+get_monomial_bonus(sys.argv[1])
 
 #lcm (minimo comun multiplo)
 def list_lcm(nums:list):
@@ -53,7 +81,7 @@ def list_gcd(nums:list):
         max_div = math.gcd(max_div, num)
     return(num)
 
-nums = [12, 36, 42, 51, 24]
-print(f"mcm y mcd de: {nums}")
-print(list_lcm(nums))
-print(list_gcd(nums))
+#nums = [12, 36, 42, 51, 24]
+#print(f"mcm y mcd de: {nums}")
+#print(list_lcm(nums))
+#print(list_gcd(nums))
