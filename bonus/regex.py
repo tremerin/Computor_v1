@@ -20,6 +20,42 @@ def get_monomials(string:str):
     
     return monomials
 
+
+def get_monomials_bonus(string:str):
+    """
+    separates and return a member of an equation by monomials
+    """
+    monomials = list()
+    regexs = [r"([+-])",                                #sign
+            r"\s*\d+(\.\d+)? \* X\^\d+\s*",             #complete monomial
+            r"\s*\d+\s*$",                              #only coefficient
+            r"\s*\d+(\.\d+)? \* X\s*$",                 #no exponent
+            r"\s*X\^\d+\s*$"]                           #no coefficient
+
+    normalize = [lambda sign, piece: sign + piece,
+            lambda sign, piece: sign + " " + piece + " * X^0",
+            lambda sign, piece: sign + " " + piece + "^1",
+            lambda sign, piece: sign + " " + "1 * " + piece]
+
+    split_string = [string for string in re.split(regexs[0], string) if string]
+    if split_string[0] not in ["-", "+"]:
+        split_string.insert(0, "+")
+    sign = ""
+    for piece in split_string:
+        for i in range(len(regexs)+1):
+            if i == len(regexs):
+                print("Error: bat syntax:", piece)
+                exit()
+            span = re.match(regexs[i], piece)
+            if span != None:
+                if i == 0:sign = piece
+                else:
+                    piece = re.sub(r"\s*$", "", re.sub(r"^\s*", "", piece))
+                    monomials.append(normalize[i-1](sign, piece))
+                break
+
+    return monomials
+
 def read_monomial(string:str):
     """
     obtain the sing, the coefficient and exponent of a monomial

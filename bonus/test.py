@@ -22,32 +22,42 @@ for string in split_string:
     else:
         print(f"{string}: true")
 
+  
 def get_monomial_bonus(string:str):
-    monomials:list
+    monomials = list()
     regexs = [r"([+-])",                                #sign
-            r"\s*\d+(\.\d+)? \* X(?:\^\d+\s*$|\s*$)",   #complete monomial
+            r"\s*\d+(\.\d+)? \* X\^\d+\s*",             #complete monomial
             r"\s*\d+\s*$",                              #only coefficient
-            r"\s*\d+(\.\d+)? \* X \d+\s*$",             #no exponent
+            r"\s*\d+(\.\d+)? \* X\s*$",                 #no exponent
             r"\s*X\^\d+\s*$"]                           #no coefficient
+
+    normalize = [lambda sign, piece: sign + piece,
+            lambda sign, piece: sign + " " + piece + " * X^0",
+            lambda sign, piece: sign + " " + piece + "^1",
+            lambda sign, piece: sign + " " + "1 * " + piece]
 
     split_string = [string for string in re.split(regexs[0], string) if string]
     if split_string[0] not in ["-", "+"]:
         split_string.insert(0, "+")
-    print("split:", split_string)
     sign = ""
     for piece in split_string:
-        for regex in regexs:
-            #print(f"{piece} try [{regex}]")
-            span = re.match(regex, piece)
+        for i in range(len(regexs)+1):
+            if i == len(regexs):
+                print("Error: bat syntax:", piece)
+                exit()
+            span = re.match(regexs[i], piece)
             if span != None:
-                print(f"{piece} mach[{regex}]")
+                if i == 0:sign = piece
+                else:
+                    piece = re.sub(r"\s*$", "", re.sub(r"^\s*", "", piece))
+                    monomials.append(normalize[i-1](sign, piece))
                 break
 
-    #return monomials
+    return monomials
 
 
 print("--- get monomials ---")
-get_monomial_bonus(sys.argv[1])
+print(get_monomial_bonus(sys.argv[1]))
 
 #lcm (minimo comun multiplo)
 def list_lcm(nums:list):

@@ -2,6 +2,15 @@ import math
 import sys  
 import regex # type: ignore
 
+def  irreducible_fraction(numerator:float, denominator:float):
+    irreducible:str = " x/x"
+    divisor = math.gcd(int(numerator), int(denominator))
+    if numerator % divisor == 0 and denominator % divisor == 0:
+        irreducible = f"{int(numerator/divisor)}/{int(denominator/divisor)}"
+    else:
+        irreducible = f"{numerator}/{denominator}"
+    return irreducible
+
 def second_degree_equation(a:float, b:float, c:float):
     """
     Calculate the discriminant and the solution, if possible, of the quadratic equation.
@@ -10,10 +19,21 @@ def second_degree_equation(a:float, b:float, c:float):
     if dis <0:
         print("The solution is not a real number")
     else:
-        x1 = (-b - math.sqrt(dis)) / (2 * a)
+        numerator = -b - math.sqrt(dis)
+        denominator = 2 * a
+        x1 = x2 = ""
+        if numerator % denominator == 0:
+            x1 = numerator / denominator
+        else:
+            x1 = irreducible_fraction(numerator, denominator)
         print(f"x1: {x1}")
-        x2 = (-b + math.sqrt(dis)) / (2 * a)
+        numerator = -b + math.sqrt(dis)
+        if numerator % denominator == 0:
+            x2 = numerator / denominator
+        else:
+            x2 = irreducible_fraction(numerator, denominator)
         print(f"x2: {x2}")
+
 
 def read_monomials(equation_terms:list):
     """
@@ -22,8 +42,8 @@ def read_monomials(equation_terms:list):
     if len(equation_terms) != 2:
         print("Error: Bad syntax")
         exit()
-    first = regex.get_monomials(equation_terms[0])
-    second = regex.get_monomials(equation_terms[1])
+    first = regex.get_monomials_bonus(equation_terms[0])
+    second = regex.get_monomials_bonus(equation_terms[1])
     monomials = list()
 
     for monomial in first:
@@ -108,6 +128,7 @@ def computor():
         second_degree_equation(a, b, c)
     else:   
         print(f"The solution is:\n{(reduced_form[0][0] * -1) / reduced_form[1][0]}")
+        print(f"The solution is:\n{irreducible_fraction((reduced_form[0][0] * -1), reduced_form[1][0])}")
 
     
 if __name__=="__main__":
