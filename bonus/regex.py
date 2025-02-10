@@ -19,7 +19,17 @@ def get_monomials(string:str):
         string = string[pos_end:leng]
     
     return monomials
-
+ 
+def error_systaxis_analyzer(piece:str):
+    regexs = [r"[^0-9X\*\^\s]",                         #invalid characters
+            r"\s{2,}",                                  #spaces
+            r"XX",                                      #doble X
+            r"\^\^"                                     #doble exponent
+            r"[+-][+-]"]                                #doble sign
+    errors = re.findall(regexs[0], piece)
+    for error in errors:
+        print(f"Error: Bad syntax in monomio: {piece}: {error}")
+    
 
 def get_monomials_bonus(string:str):
     """
@@ -44,7 +54,7 @@ def get_monomials_bonus(string:str):
     for piece in split_string:
         for i in range(len(regexs)+1):
             if i == len(regexs):
-                print("Error: bat syntax:", piece)
+                error_systaxis_analyzer(piece)
                 exit()
             span = re.match(regexs[i], piece)
             if span != None:
@@ -53,7 +63,7 @@ def get_monomials_bonus(string:str):
                     piece = re.sub(r"\s*$", "", re.sub(r"^\s*", "", piece))
                     monomials.append(normalize[i-1](sign, piece))
                 break
-
+    print(monomials)
     return monomials
 
 def read_monomial(string:str):

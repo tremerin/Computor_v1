@@ -3,10 +3,17 @@ import sys
 import regex # type: ignore
 
 def  irreducible_fraction(numerator:float, denominator:float):
+    """
+    Claculate the irreducible form of a fraction
+    """
     irreducible:str = " x/x"
     divisor = math.gcd(int(numerator), int(denominator))
+    #print(f"numerator:{numerator}, denominator: {denominator}")
     if numerator % divisor == 0 and denominator % divisor == 0:
-        irreducible = f"{int(numerator/divisor)}/{int(denominator/divisor)}"
+        if denominator/divisor == 1:
+            irreducible = f"{numerator/divisor}"
+        else:
+            irreducible = f"{int(numerator/divisor)}/{int(denominator/divisor)}"
     else:
         irreducible = f"{numerator}/{denominator}"
     return irreducible
@@ -127,7 +134,7 @@ def computor():
             elif monomial[1] == 0: c = monomial[0]
         second_degree_equation(a, b, c)
     else:   
-        print(f"The solution is:\n{(reduced_form[0][0] * -1) / reduced_form[1][0]}")
+        #print(f"The solution is:\n{(reduced_form[0][0] * -1) / reduced_form[1][0]}")
         print(f"The solution is:\n{irreducible_fraction((reduced_form[0][0] * -1), reduced_form[1][0])}")
 
     

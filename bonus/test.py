@@ -3,6 +3,7 @@ import sys
 import math
 
 print("test")
+"""
 regex = r"([+-])" 
 if len(sys.argv) == 2:
     #list comprehension
@@ -21,7 +22,7 @@ for string in split_string:
         print(f"{string}: false")
     else:
         print(f"{string}: true")
-
+"""
   
 def get_monomial_bonus(string:str):
     monomials = list()
@@ -56,8 +57,8 @@ def get_monomial_bonus(string:str):
     return monomials
 
 
-print("--- get monomials ---")
-print(get_monomial_bonus(sys.argv[1]))
+#print("--- get monomials ---")
+#print(get_monomial_bonus(sys.argv[1]))
 
 #lcm (minimo comun multiplo)
 def list_lcm(nums:list):
@@ -95,3 +96,10 @@ def list_gcd(nums:list):
 #print(f"mcm y mcd de: {nums}")
 #print(list_lcm(nums))
 #print(list_gcd(nums))
+
+string = "Hola mundo!"
+regex = r" {2,}"
+regex2 = r"o" 
+errors = re.findall(regex2, sys.argv[1])
+print(errors)
+print(len(errors))
