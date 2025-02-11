@@ -6,7 +6,7 @@ def  irreducible_fraction(numerator:float, denominator:float):
     """
     Claculate the irreducible form of a fraction
     """
-    irreducible:str = " x/x"
+    irreducible:str = ""
     divisor = math.gcd(int(numerator), int(denominator))
     #print(f"numerator:{numerator}, denominator: {denominator}")
     if numerator % divisor == 0 and denominator % divisor == 0:
@@ -49,6 +49,9 @@ def read_monomials(equation_terms:list):
     if len(equation_terms) != 2:
         print("Error: Bad syntax")
         exit()
+    if not regex.valid_syntax(equation_terms[0]) and not regex.valid_syntax(equation_terms[1]):
+        print("bad")
+
     first = regex.get_monomials_bonus(equation_terms[0])
     second = regex.get_monomials_bonus(equation_terms[1])
     monomials = list()

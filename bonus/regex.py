@@ -21,14 +21,33 @@ def get_monomials(string:str):
     return monomials
  
 def error_systaxis_analyzer(piece:str):
-    regexs = [r"[^0-9X\*\^\s]",                         #invalid characters
+    regexs = [r"[^0-9X\*\^.\s]",                        #invalid characters
             r"\s{2,}",                                  #spaces
             r"XX",                                      #doble X
             r"\^\^"                                     #doble exponent
             r"[+-][+-]"]                                #doble sign
+
     errors = re.findall(regexs[0], piece)
+    print("Error: Bad syntax")
     for error in errors:
         print(f"Error: Bad syntax in monomio: {piece}: {error}")
+
+def valid_syntax(string:str):
+    regexs = {
+        r"[^0-9X\*\^.[+-]-\s]"   :   "Invalid character",
+        r"\s{2,}"           :   "More than one space together",
+        r"XX"               :   "More than one X together",
+        r"\^\^"             :   "More than one ^ together",
+        r"[+-][+-]"         :   "More than one sign together"
+    }
+    valid = True
+    for key, value in regexs.items():
+        errors = re.findall(key, string)
+        if len(errors) > 0:
+            valid = False
+            for error in errors:
+                print(f"Error: {value} => {error}")
+    return valid
     
 
 def get_monomials_bonus(string:str):

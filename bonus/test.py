@@ -97,9 +97,11 @@ def list_gcd(nums:list):
 #print(list_lcm(nums))
 #print(list_gcd(nums))
 
+"""
 string = "Hola mundo!"
 regex = r" {2,}"
 regex2 = r"o" 
 errors = re.findall(regex2, sys.argv[1])
 print(errors)
 print(len(errors))
+"""
