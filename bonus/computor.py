@@ -49,7 +49,7 @@ def read_monomials(equation_terms:list):
     if len(equation_terms) != 2:
         print("Error: Bad syntax")
         exit()
-    if not regex.valid_syntax(equation_terms[0]) and not regex.valid_syntax(equation_terms[1]):
+    if not regex.valid_syntax(equation_terms[0]) or not regex.valid_syntax(equation_terms[1]):
         print("bad")
 
     first = regex.get_monomials_bonus(equation_terms[0])

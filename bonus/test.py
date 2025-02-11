@@ -105,3 +105,62 @@ errors = re.findall(regex2, sys.argv[1])
 print(errors)
 print(len(errors))
 """
+
+print("-- highlighter --")
+normal = "hola mundo mundo inmundo mundo!"
+palabra = "mundo"
+regex = rf"\b{palabra}\b"
+color = "\033[41m"
+#matchs = re.findall(regex, normal)
+#print(matchs)
+final = re.sub(regex, f"{color}{palabra}\033[0m", normal)
+print(final)
+
+def resaltar_palabra(texto, palabra, color_fondo="\033[43m"):  # Fondo amarillo por defecto
+    # Expresión regular para encontrar la palabra exacta (evita reemplazar dentro de otras palabras)
+    patron = rf'\b{re.escape(palabra)}\b'
+    
+    # Reemplazar la palabra por su versión coloreada
+    texto_modificado = re.sub(patron, f"{color_fondo}{palabra}\033[0m", texto)
+
+    return texto_modificado
+
+# Ejemplo de uso
+texto = " Python es un lenguaje genial. Me encanta Pythone!"
+palabra_resaltar = "Python"
+
+print(resaltar_palabra(texto, palabra_resaltar, "\033[41m"))  # Fondo rojo
+
+
+######################################################################################################
+def resaltar_coincidencias(texto, patrones_colores):
+    """
+    Resalta en el texto todas las coincidencias de varias expresiones regulares con distintos colores de fondo.
+    
+    :param texto: Cadena de texto a analizar.
+    :param patrones_colores: Lista de tuplas (expresión regular, código ANSI de color).
+    :return: Texto modificado con colores en las coincidencias.
+    """
+    texto_modificado = texto
+
+    for patron, color_fondo in patrones_colores:
+        texto_modificado = re.sub(
+            patron, 
+            lambda match: f"{color_fondo}{match.group(0)}\033[0m", 
+            texto_modificado
+        )
+
+    return texto_modificado
+
+# Ejemplo de uso
+texto = "Python es increíble! Tengo 2 gatos y 1 perro. Mi correo es email@ejemplo.com."
+
+# Lista de patrones y colores (fondo)
+patrones_colores = [
+    (r'\bPython\b', '\033[41m'),     # "Python" con fondo rojo
+    (r'\d+', '\033[42m'),            # Números con fondo verde
+    (r'\b\w+@\w+\.\w+\b', '\033[44m') # Correos electrónicos con fondo azul
+]
+
+print(resaltar_coincidencias(texto, patrones_colores))
+
