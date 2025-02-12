@@ -34,22 +34,32 @@ def error_systaxis_analyzer(piece:str):
 
 def valid_syntax(string:str):
     regexs = {
-        r"[^0-9X\*\^.\+\-\s]"   :   "Invalid character",
-        r"\s{2,}"               :   "More than one space together",
-        r"XX"                   :   "More than one X together",
-        r"\^\^"                 :   "More than one ^ together",
-        r"[+-][+-]"             :   "More than one sign together"
+        r"[^0-9X\*\^\.\+\-\s]"  :   "Invalid character              :",
+        r"\s{2,}"               :   "More than one space together   :",
+        r"X{2,}"                :   "More than one X together       :",
+        r"\^{2,}"               :   "More than one ^ together       :",
+        r"[+-]{2,}"             :   "More than one sign together    :",
+        r"\*{2,}"               :   "More than one * together       :",
+        r"\.{2,}"               :   "More than one . together       :",
+        r"X \^"                 :   "Incorrect space                :",
+        r"X\^ \d*"              :   "Incorrect space                :",
+        r"X\s*\^\s*\d+\.\d*"    :   "Decimal exponent               :",
+        r" ?[+-]\s*$"           :   "No coefficient                 :"
     }
     valid = True
-    corrected = string
     for key, value in regexs.items():
         errors = re.findall(key, string)
+        #errors = list(set(re.findall(key, string)))
         if len(errors) > 0:
+            corrected = string
+            #print(f"Errors: {errors}")
             valid = False
             for error in errors:
-                print(f"Error: {value} => {error}")
-    print(f"{string} is: {valid}")
-    print(f"corrected: {corrected}")
+                fail = rf"{re.escape(error)}"
+                corrected = re.sub(fail, f"\033[41m{error}\033[0m",corrected)
+            print(f"Error: {value}{corrected}")
+    #print(f"{string} is: {valid}")
+    #print(f"corrected: {corrected}")
     return valid
     
 

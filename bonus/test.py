@@ -92,11 +92,6 @@ def list_gcd(nums:list):
         max_div = math.gcd(max_div, num)
     return(num)
 
-#nums = [12, 36, 42, 51, 24]
-#print(f"mcm y mcd de: {nums}")
-#print(list_lcm(nums))
-#print(list_gcd(nums))
-
 """
 string = "Hola mundo!"
 regex = r" {2,}"
@@ -106,7 +101,7 @@ print(errors)
 print(len(errors))
 """
 
-print("-- highlighter --")
+print("- - - highlighter - - -")
 normal = "hola mundo mundo inmundo mundo!"
 palabra = "mundo"
 regex = rf"\b{palabra}\b"

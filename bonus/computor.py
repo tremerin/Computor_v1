@@ -1,6 +1,7 @@
 import math
 import sys  
 import regex # type: ignore
+import re #test
 
 def  irreducible_fraction(numerator:float, denominator:float):
     """
@@ -46,12 +47,16 @@ def read_monomials(equation_terms:list):
     """
     Decomposes the text string into monomials
     """
-    if len(equation_terms) != 2:
-        print("Error: Bad syntax")
+    if len(equation_terms) > 2:
+        print("Error: Bad syntax, two or more \"=\" simbol")
         exit()
-    if not regex.valid_syntax(equation_terms[0]) or not regex.valid_syntax(equation_terms[1]):
-        print("bad")
-
+    elif len(equation_terms) == 1:
+        print("Error: Bad syntax, no \"=\" simbol")
+        exit()
+    valid_first = regex.valid_syntax(equation_terms[0])
+    valid_second = regex.valid_syntax(equation_terms[1])
+    if not valid_first or not valid_second:
+        exit()
     first = regex.get_monomials_bonus(equation_terms[0])
     second = regex.get_monomials_bonus(equation_terms[1])
     monomials = list()
@@ -115,7 +120,8 @@ def computor():
         print("Usage: Enter as the only argument the equation expressed in monomials")
         exit()
 
-    monomials = read_monomials(sys.argv[1].split(" ="))
+    #monomials = read_monomials(sys.argv[1].split(" ="))
+    monomials = read_monomials(re.split(r"\s*=\s*", sys.argv[1]))
 
     reduced_form = equation_reduced_form(monomials)
 
