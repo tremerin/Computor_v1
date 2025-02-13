@@ -159,3 +159,16 @@ patrones_colores = [
 
 print(resaltar_coincidencias(texto, patrones_colores))
 
+
+def max_decimal_len(nums:list):
+    max_decimals: int = 0
+    for num in nums:
+        i = 0
+        while num % 1 != 0:
+            num *= 10
+            i += 1
+        if i > max_decimals: max_decimals = i
+    return max_decimals
+
+nums = [3.12, 4, 2.333, 0.1]
+print(max_decimal_len(nums))

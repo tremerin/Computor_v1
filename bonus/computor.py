@@ -112,6 +112,29 @@ def print_reduced_form(reduced_form:list):
         print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "")
     print("= 0")
 
+def max_decimal_len(nums:list):
+    max_decimals: int = 0
+    for num in nums:
+        i = 0
+        while num % 1 != 0:
+            num *= 10
+            i += 1
+        if i > max_decimals: max_decimals = i
+    return max_decimals
+
+def solve_decimals(reduced_form:list):
+    solved_form = reduced_form
+    coefficients = [num[0] for num in reduced_form]
+    #print(coefficients)
+    decimals = max_decimal_len(coefficients)
+    #print(decimals)
+    multi = pow(10, decimals)
+    #print(multi)
+    for monomial in solved_form:
+        monomial[0] = int(monomial[0] * multi)
+    print(solved_form)
+    return solved_form
+
 def computor():
     """
     Solves first and second degree equations given as monomials in a text string
@@ -131,7 +154,8 @@ def computor():
 
     print_reduced_form(reduced_form)
     print(f"Polynomial degree: {reduced_form[-1][1]}")
-
+    print(f"solve decimals:{solve_decimals(reduced_form)}")
+    reduced_form = solve_decimals(reduced_form)
     if reduced_form[-1][1] > 2:
         print("The polynomial degree is strictly greater than 2, I can't solve.")
         exit()
