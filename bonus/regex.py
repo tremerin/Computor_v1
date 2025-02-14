@@ -34,17 +34,22 @@ def error_systaxis_analyzer(piece:str):
 
 def valid_syntax(string:str):
     regexs = {
-        r"[^0-9X\*\^\.\+\-\s]"  :   "Invalid character              :",
-        r"\s{2,}"               :   "More than one space together   :",
-        r"X{2,}"                :   "More than one X together       :",
-        r"\^{2,}"               :   "More than one ^ together       :",
-        r"[+-]{2,}"             :   "More than one sign together    :",
-        r"\*{2,}"               :   "More than one * together       :",
-        r"\.{2,}"               :   "More than one . together       :",
-        r"X \^"                 :   "Incorrect space                :",
-        r"X\^ \d*"              :   "Incorrect space                :",
-        r"X\s*\^\s*\d+\.\d*"    :   "Decimal exponent               :",
-        r" ?[+-]\s*$"           :   "No coefficient                 :"
+        r"[^0-9X\*\^\.\+\-\s]"          :   "Invalid character              :",
+        r"\s{2,}"                       :   "More than one space together   :",
+        r"X{2,}"                        :   "More than one X together       :",
+        r"\^{2,}"                       :   "More than one ^ together       :",
+        r"[+-]{2,}"                     :   "More than one sign together    :",
+        r"\*{2,}"                       :   "More than one * together       :",
+        r"\.{2,}"                       :   "More than one . together       :",
+        r"X \^"                         :   "Incorrect space                :",
+        r"X\^ \d*"                      :   "Incorrect space                :",
+        r"X\s*\^\s*\d+\.\d*"            :   "Decimal exponent               :",
+        r"[+-]\s*\*|[+-]\s*$"           :   "No coefficient                 :",
+        r"[+-]\s*[+-]"                  :   "No coefficient                 :",
+        r"\d+\.\d+\."                   :   "Invalid expresion              :",
+        r"\d+\s*X"                      :   "Need * symbol                  :",
+        r"\d+\s*\d+"                    :   "Need sign between monomials    :",
+        r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :"
     }
     valid = True
     for key, value in regexs.items():
