@@ -11,9 +11,9 @@ def second_degree_equation(a:float, b:float, c:float):
         print("The solution is not a real number")
     else:
         x1 = (-b - math.sqrt(dis)) / (2 * a)
-        print(f"x1: {x1}")
+        print(f"x1: {round(x1, 6)}")
         x2 = (-b + math.sqrt(dis)) / (2 * a)
-        print(f"x2: {x2}")
+        print(f"x2: {round(x2, 6)}")
 
 def read_monomials(equation_terms:list):
     """

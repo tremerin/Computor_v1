@@ -9,7 +9,6 @@ def  irreducible_fraction(numerator:float, denominator:float):
     """
     irreducible:str = ""
     divisor = math.gcd(int(numerator), int(denominator))
-    #print(f"numerator:{numerator}, denominator: {denominator}")
     if numerator % divisor == 0 and denominator % divisor == 0:
         if denominator/divisor == 1:
             irreducible = f"{numerator/divisor}"
@@ -31,15 +30,15 @@ def second_degree_equation(a:float, b:float, c:float):
         denominator = 2 * a
         x1 = x2 = ""
         if numerator % denominator == 0:
-            x1 = numerator / denominator
+            x1 = round(numerator, 6), round(denominator, 6)
         else:
-            x1 = irreducible_fraction(numerator, denominator)
+            x1 = irreducible_fraction(round(numerator, 6), round(denominator, 6))
         print(f"x1: {x1}")
         numerator = -b + math.sqrt(dis)
         if numerator % denominator == 0:
-            x2 = numerator / denominator
+            x2 = round(numerator, 6), round(denominator, 6)
         else:
-            x2 = irreducible_fraction(numerator, denominator)
+            x2 = irreducible_fraction(round(numerator, 6), round(denominator, 6))
         print(f"x2: {x2}")
 
 
@@ -113,6 +112,9 @@ def print_reduced_form(reduced_form:list):
     print("= 0")
 
 def max_decimal_len(nums:list):
+    """
+    Calculate the number with the most decimal places in a list
+    """
     max_decimals: int = 0
     for num in nums:
         i = 0
@@ -123,16 +125,14 @@ def max_decimal_len(nums:list):
     return max_decimals
 
 def solve_decimals(reduced_form:list):
+    """
+    Remove decimals from coefficients
+    """
     solved_form = reduced_form
     coefficients = [num[0] for num in reduced_form]
-    #print(coefficients)
-    decimals = max_decimal_len(coefficients)
-    #print(decimals)
-    multi = pow(10, decimals)
-    #print(multi)
+    multi = pow(10, max_decimal_len(coefficients))
     for monomial in solved_form:
         monomial[0] = int(monomial[0] * multi)
-    print(solved_form)
     return solved_form
 
 def computor():
