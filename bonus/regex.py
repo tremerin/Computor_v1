@@ -1,4 +1,5 @@
 import re
+from decimal import Decimal
 
 def get_monomials(string:str):
     """
@@ -43,13 +44,15 @@ def valid_syntax(string:str):
         r"\.{2,}"                       :   "More than one . together       :",
         r"X \^"                         :   "Incorrect space                :",
         r"X\^ \d*"                      :   "Incorrect space                :",
-        r"X\s*\^\s*\d+\.\d*"            :   "Decimal exponent               :",
+        r"X\^\d+\.\d*"                  :   "Decimal exponent               :",
+        r"X\s*\^\s{1,}"                 :   "Need a exponent                :",
         r"[+-]\s*\*|[+-]\s*$"           :   "No coefficient                 :",
         r"[+-]\s*[+-]"                  :   "No coefficient                 :",
         r"\d+\.\d+\."                   :   "Invalid expresion              :",
         r"\d+\s*X"                      :   "Need * symbol                  :",
         r"\d+\s*\d+"                    :   "Need sign between monomials    :",
-        r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :"
+        r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :",
+        r"\^[+-]\d+"                    :   "Sign in the exponent           :"
     }
     valid = True
     for key, value in regexs.items():
@@ -126,9 +129,9 @@ def read_monomial(string:str):
             string = string[pos_end:leng]
 
     if "-" not in parts[0]:
-        value.append(float(parts[1]))
+        value.append(Decimal(parts[1])) #cambio por decimal
     else:
-        value.append(float(parts[1]) * -1)
+        value.append(Decimal(parts[1]) * -1)
     value.append(int(parts[3]))
 
     return value

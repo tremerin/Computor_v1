@@ -8,14 +8,15 @@ def  irreducible_fraction(numerator:float, denominator:float):
     Claculate the irreducible form of a fraction
     """
     irreducible:str = ""
-    divisor = math.gcd(int(numerator), int(denominator))
+    divisor = math.gcd(numerator, denominator)
+
     if numerator % divisor == 0 and denominator % divisor == 0:
         if denominator/divisor == 1:
-            irreducible = f"{numerator/divisor}"
+            irreducible = f"x = {numerator/divisor}"
         else:
-            irreducible = f"{int(numerator/divisor)}/{int(denominator/divisor)}"
+            irreducible = f"x = {int(numerator/divisor)}/{int(denominator/divisor)}"
     else:
-        irreducible = f"{numerator}/{denominator}"
+        irreducible = f"x = {round(numerator, 6)}/{round(denominator, 6)}"
     return irreducible
 
 def second_degree_equation(a:float, b:float, c:float):
@@ -108,7 +109,8 @@ def print_reduced_form(reduced_form:list):
         if monomial[0] < 0: sign = "- "
         coefficient = monomial[0]
         if monomial[0] % 1 == 0: coefficient = int(monomial[0])
-        print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "")
+        print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "") #
+        #print(f"{sign}{round(abs(coefficient), 6)} * X^{monomial[1]} ", end = "") #
     print("= 0")
 
 def max_decimal_len(nums:list):
@@ -143,9 +145,7 @@ def computor():
         print("Usage: Enter as the only argument the equation expressed in monomials")
         exit()
 
-    #monomials = read_monomials(sys.argv[1].split(" ="))
     monomials = read_monomials(re.split(r"\s*=\s*", sys.argv[1]))
-
     reduced_form = equation_reduced_form(monomials)
 
     if len(reduced_form) == 0:
@@ -154,7 +154,7 @@ def computor():
 
     print_reduced_form(reduced_form)
     print(f"Polynomial degree: {reduced_form[-1][1]}")
-    print(f"solve decimals:{solve_decimals(reduced_form)}")
+
     reduced_form = solve_decimals(reduced_form)
     if reduced_form[-1][1] > 2:
         print("The polynomial degree is strictly greater than 2, I can't solve.")
@@ -167,7 +167,6 @@ def computor():
             elif monomial[1] == 0: c = monomial[0]
         second_degree_equation(a, b, c)
     else:   
-        #print(f"The solution is:\n{(reduced_form[0][0] * -1) / reduced_form[1][0]}")
         print(f"The solution is:\n{irreducible_fraction((reduced_form[0][0] * -1), reduced_form[1][0])}")
 
     
