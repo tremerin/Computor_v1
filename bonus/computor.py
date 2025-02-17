@@ -8,15 +8,19 @@ def  irreducible_fraction(numerator:float, denominator:float):
     Claculate the irreducible form of a fraction
     """
     irreducible:str = ""
+
+    if type(numerator) == float or type(denominator) == float:
+        return f"{numerator}/{denominator}"
+    
     divisor = math.gcd(numerator, denominator)
 
     if numerator % divisor == 0 and denominator % divisor == 0:
         if denominator/divisor == 1:
-            irreducible = f"x = {numerator/divisor}"
+            irreducible = f"{numerator/divisor}"
         else:
-            irreducible = f"x = {int(numerator/divisor)}/{int(denominator/divisor)}"
+            irreducible = f"{int(numerator/divisor)}/{int(denominator/divisor)}"
     else:
-        irreducible = f"x = {round(numerator, 6)}/{round(denominator, 6)}"
+        irreducible = f"{round(numerator, 6)}/{round(denominator, 6)}"
     return irreducible
 
 def second_degree_equation(a:float, b:float, c:float):
@@ -167,7 +171,7 @@ def computor():
             elif monomial[1] == 0: c = monomial[0]
         second_degree_equation(a, b, c)
     else:   
-        print(f"The solution is:\n{irreducible_fraction((reduced_form[0][0] * -1), reduced_form[1][0])}")
+        print(f"The solution is:\nx = {irreducible_fraction((reduced_form[0][0] * -1), reduced_form[1][0])}")
 
     
 if __name__=="__main__":

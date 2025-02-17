@@ -48,9 +48,10 @@ def valid_syntax(string:str):
         r"X\s*\^\s{1,}"                 :   "Need a exponent                :",
         r"[+-]\s*\*|[+-]\s*$"           :   "No coefficient                 :",
         r"[+-]\s*[+-]"                  :   "No coefficient                 :",
+        r"\d+\. |\s{1,}\."              :   "Decimal part missing           :",
         r"\d+\.\d+\."                   :   "Invalid expresion              :",
         r"\d+\s*X"                      :   "Need * symbol                  :",
-        r"\d+\s*\d+"                    :   "Need sign between monomials    :",
+        r"\d+\s{1,}\d+"                 :   "Need sign between monomials    :",
         r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :",
         r"\^[+-]\d+"                    :   "Sign in the exponent           :"
     }
@@ -103,12 +104,12 @@ def get_monomials_bonus(string:str):
                     piece = re.sub(r"\s*$", "", re.sub(r"^\s*", "", piece))
                     monomials.append(normalize[i-1](sign, piece))
                 break
-    print(monomials)
+    #print(monomials)
     return monomials
 
 def read_monomial(string:str):
     """
-    obtain the sing, the coefficient and exponent of a monomial
+    Obtain the sing, the coefficient and exponent of a monomial
     """
     regexs = [r" ?[+-]? ?", #sign
             r"\d+(\.\d+)?", #coefficient
