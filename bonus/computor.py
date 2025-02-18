@@ -1,7 +1,7 @@
 import math
 import sys  
 import regex # type: ignore
-import re #test
+
 
 def  irreducible_fraction(numerator:float, denominator:float):
     """
@@ -22,6 +22,7 @@ def  irreducible_fraction(numerator:float, denominator:float):
     else:
         irreducible = f"{round(numerator, 6)}/{round(denominator, 6)}"
     return irreducible
+
 
 def second_degree_equation(a:float, b:float, c:float):
     """
@@ -47,16 +48,11 @@ def second_degree_equation(a:float, b:float, c:float):
         print(f"x2: {x2}")
 
 
-def read_monomials(equation_terms:list):
+def read_monomials(string:str):
     """
     Decomposes the text string into monomials
     """
-    if len(equation_terms) > 2:
-        print("Error: Bad syntax, two or more \"=\" simbol")
-        exit()
-    elif len(equation_terms) == 1:
-        print("Error: Bad syntax, no \"=\" simbol")
-        exit()
+    equation_terms = regex.split_equation_terms(string)
     valid_first = regex.valid_syntax(equation_terms[0])
     valid_second = regex.valid_syntax(equation_terms[1])
     if not valid_first or not valid_second:
@@ -71,7 +67,9 @@ def read_monomials(equation_terms:list):
         new_monomial = regex.read_monomial(monomial)
         new_monomial[0] = new_monomial[0] * -1
         monomials.append(new_monomial)
+
     return monomials
+
 
 def equation_reduced_form(monomials:list):
     """
@@ -103,6 +101,7 @@ def equation_reduced_form(monomials:list):
     
     return reduced_form
 
+
 def print_reduced_form(reduced_form:list):
     """
     Print the reduced form
@@ -114,8 +113,9 @@ def print_reduced_form(reduced_form:list):
         coefficient = monomial[0]
         if monomial[0] % 1 == 0: coefficient = int(monomial[0])
         print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "") #
-        #print(f"{sign}{round(abs(coefficient), 6)} * X^{monomial[1]} ", end = "") #
+
     print("= 0")
+
 
 def max_decimal_len(nums:list):
     """
@@ -130,6 +130,7 @@ def max_decimal_len(nums:list):
         if i > max_decimals: max_decimals = i
     return max_decimals
 
+
 def solve_decimals(reduced_form:list):
     """
     Remove decimals from coefficients
@@ -141,6 +142,7 @@ def solve_decimals(reduced_form:list):
         monomial[0] = int(monomial[0] * multi)
     return solved_form
 
+
 def computor():
     """
     Solves first and second degree equations given as monomials in a text string
@@ -149,7 +151,7 @@ def computor():
         print("Usage: Enter as the only argument the equation expressed in monomials")
         exit()
 
-    monomials = read_monomials(re.split(r"\s*=\s*", sys.argv[1]))
+    monomials = read_monomials(sys.argv[1])
     reduced_form = equation_reduced_form(monomials)
 
     if len(reduced_form) == 0:

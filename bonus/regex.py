@@ -1,39 +1,11 @@
 import re
 from decimal import Decimal
 
-def get_monomials(string:str):
-    """
-    separates and return a member of an equation by monomials
-    """
-    regex = r" ?[+-]? ?\d+(\.\d+)? \* X\^\d+"
-    leng:int = len(string)
-    monomials = list()
-    pos_end:int = 0
-
-    while len(string) > 0:
-        span = re.match(regex, string)
-        if span == None:
-                print("Error: Bad syntax")
-                exit()
-        pos_end = span.span()[1]
-        monomials.append(string[span.span()[0]:pos_end])
-        string = string[pos_end:leng]
-    
-    return monomials
- 
-def error_systaxis_analyzer(piece:str):
-    regexs = [r"[^0-9X\*\^.\s]",                        #invalid characters
-            r"\s{2,}",                                  #spaces
-            r"XX",                                      #doble X
-            r"\^\^"                                     #doble exponent
-            r"[+-][+-]"]                                #doble sign
-
-    errors = re.findall(regexs[0], piece)
-    print("Error: Bad syntax")
-    #for error in errors:
-    #    print(f"Error: Bad syntax in monomio: {piece}: {error}")
 
 def valid_syntax(string:str):
+    """
+    Find and print syntax errors
+    """
     regexs = {
         r"[^0-9X\*\^\.\+\-\s]"          :   "Invalid character              :",
         r"\s{2,}"                       :   "More than one space together   :",
@@ -55,20 +27,18 @@ def valid_syntax(string:str):
         r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :",
         r"\^[+-]\d+"                    :   "Sign in the exponent           :"
     }
+
     valid = True
     for key, value in regexs.items():
         errors = re.findall(key, string)
-        #errors = list(set(re.findall(key, string)))
         if len(errors) > 0:
             corrected = string
-            #print(f"Errors: {errors}")
             valid = False
             for error in errors:
                 fail = rf"{re.escape(error)}"
                 corrected = re.sub(fail, f"\033[41m{error}\033[0m",corrected)
             print(f"Error: {value}{corrected}")
-    #print(f"{string} is: {valid}")
-    #print(f"corrected: {corrected}")
+
     return valid
     
 
@@ -95,7 +65,7 @@ def get_monomials_bonus(string:str):
     for piece in split_string:
         for i in range(len(regexs)+1):
             if i == len(regexs):
-                error_systaxis_analyzer(piece)
+                print("Error: Bad syntax")
                 exit()
             span = re.match(regexs[i], piece)
             if span != None:
@@ -104,8 +74,9 @@ def get_monomials_bonus(string:str):
                     piece = re.sub(r"\s*$", "", re.sub(r"^\s*", "", piece))
                     monomials.append(normalize[i-1](sign, piece))
                 break
-    #print(monomials)
+
     return monomials
+
 
 def read_monomial(string:str):
     """
@@ -115,6 +86,7 @@ def read_monomial(string:str):
             r"\d+(\.\d+)?", #coefficient
             r" \* X\^",     #literal
             r"\d+"]         #exponent 
+
     leng:int = len(string)
     parts = list()
     value = list()
@@ -130,9 +102,25 @@ def read_monomial(string:str):
             string = string[pos_end:leng]
 
     if "-" not in parts[0]:
-        value.append(Decimal(parts[1])) #cambio por decimal
+        value.append(Decimal(parts[1]))
     else:
         value.append(Decimal(parts[1]) * -1)
     value.append(int(parts[3]))
 
     return value
+
+
+def split_equation_terms(string:str):
+    """
+    Separate terms of the equation and check the syntax
+    """
+    regex = r"\s*=\s*" #equal
+    equation_terms = re.split(regex, string)
+    if len(equation_terms) > 2:
+        print("Error: Bad syntax, two or more \"=\" simbol")
+        exit()
+    elif len(equation_terms) == 1:
+        print("Error: Bad syntax, no \"=\" simbol")
+        exit()
+
+    return equation_terms
