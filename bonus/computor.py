@@ -1,6 +1,6 @@
 import math
 import sys  
-import regex # type: ignore
+import regu as regex
 
 
 def  irreducible_fraction(numerator:float, denominator:float):
