@@ -12,5 +12,3 @@ for equation in equations:
     print(f"Testing: {equation}")
     subprocess.run(["python", "computor.py", equation])
     print("\n")
-
-#tester
