@@ -24,6 +24,9 @@ def read_monomials(equation_terms:list):
         exit()
     first = regex.get_monomials(equation_terms[0])
     second = regex.get_monomials(equation_terms[1])
+    if len(first) == 0 or len(second) == 0:
+        print("Error: Bad syntax")
+        exit()
     monomials = list()
 
     for monomial in first:

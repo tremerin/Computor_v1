@@ -20,11 +20,13 @@ def valid_syntax(string:str):
         r"X\s*\^\s{1,}"                 :   "Need a exponent                :",
         r"[+-]\s*\*|[+-]\s*$"           :   "No coefficient                 :",
         r"[+-]\s*[+-]"                  :   "No coefficient                 :",
+        r"^\s*\*"                       :   "No coefficient                 :",
         r"\d+\. |\s{1,}\."              :   "Decimal part missing           :",
         r"\d+\.\d+\."                   :   "Invalid expresion              :",
         r"\d+\s*X"                      :   "Need * symbol                  :",
         r"\d+\s{1,}\d+"                 :   "Need sign between monomials    :",
         r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :",
+        r"^\s*$"                        :   "Void monomial                  :",
         r"\^[+-]\d+"                    :   "Sign in the exponent           :"
     }
 
@@ -34,9 +36,11 @@ def valid_syntax(string:str):
         if len(errors) > 0:
             corrected = string
             valid = False
+            print(errors)
             for error in errors:
-                fail = rf"{re.escape(error)}"
-                corrected = re.sub(fail, f"\033[41m{error}\033[0m",corrected)
+                #fail = rf"{re.escape(error)}"
+                #fail = rf"{key}"
+                corrected = re.sub(key, f"\033[41m{error}\033[0m",corrected)
             print(f"Error: {value}{corrected}")
 
     return valid
@@ -115,6 +119,7 @@ def split_equation_terms(string:str):
     Separate terms of the equation and check the syntax
     """
     regex = r"\s*=\s*" #equal
+    #regex = r"=" #equal
     equation_terms = re.split(regex, string)
     if len(equation_terms) > 2:
         print("Error: Bad syntax, two or more \"=\" simbol")

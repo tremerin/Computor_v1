@@ -1,6 +1,6 @@
 import math
 import sys  
-import regu as regex
+import regular_expresions as regex
 
 
 def  irreducible_fraction(numerator:float, denominator:float):
@@ -59,6 +59,9 @@ def read_monomials(string:str):
         exit()
     first = regex.get_monomials_bonus(equation_terms[0])
     second = regex.get_monomials_bonus(equation_terms[1])
+    if len(first) == 0 or len(second) == 0:
+        print("Error: Bad syntax")
+        exit()
     monomials = list()
 
     for monomial in first:
