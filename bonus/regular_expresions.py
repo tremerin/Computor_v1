@@ -4,7 +4,13 @@ from decimal import Decimal
 
 def valid_syntax(string:str):
     """
-    Find and print syntax errors
+    Finds and prints syntax errors by underlining the error in red
+
+    Parameters:
+    string (str): One of the terms of an equation in text format.
+
+    Return:
+    value (bool): Returns true or false if the syntax is correct.
     """
     regexs = {
         r"[^0-9X\*\^\.\+\-\s]"          :   "Invalid character              :",
@@ -38,8 +44,6 @@ def valid_syntax(string:str):
             valid = False
             print(errors)
             for error in errors:
-                #fail = rf"{re.escape(error)}"
-                #fail = rf"{key}"
                 corrected = re.sub(key, f"\033[41m{error}\033[0m",corrected)
             print(f"Error: {value}{corrected}")
 
@@ -48,7 +52,7 @@ def valid_syntax(string:str):
 
 def get_monomials_bonus(string:str):
     """
-    separates and return a member of an equation by monomials
+    Separates and return a member of an equation by monomials
     """
     monomials = list()
     regexs = [r"([+-])",                                #sign
