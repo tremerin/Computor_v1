@@ -42,9 +42,12 @@ def valid_syntax(string:str):
         if len(errors) > 0:
             corrected = string
             valid = False
-            print(errors)
-            for error in errors:
-                corrected = re.sub(key, f"\033[41m{error}\033[0m",corrected)
+            if value == "Invalid character              :":
+                for error in errors:
+                    corrected = re.sub(error, f"\033[41m{error}\033[0m",corrected)
+            else:
+                for error in errors:
+                    corrected = re.sub(key, f"\033[41m{error}\033[0m",corrected)
             print(f"Error: {value}{corrected}")
 
     return valid
