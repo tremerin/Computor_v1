@@ -3,7 +3,7 @@ import sys
 import regular_expresions as regex
 
 
-def  irreducible_fraction(numerator:float, denominator:float, precision:int = 6):
+def irreducible_fraction(numerator:float, denominator:float, precision:int = 6):
     """
     Claculate the irreducible form of a fraction
     """
@@ -222,6 +222,8 @@ def computor():
             elif monomial[1] == 1: b = monomial[0]
             elif monomial[1] == 0: c = monomial[0]
         second_degree_equation(a, b, c)
+    elif reduced_form[-1][1] == 0:
+        print("Invalid expresion")
     else:   
         print(f"The solution is:\nx = {irreducible_fraction((reduced_form[0][0] * -1), reduced_form[1][0])}")
 

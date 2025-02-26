@@ -32,7 +32,7 @@ def valid_syntax(string:str):
         r"\d+\s*X"                      :   "Need * symbol                  :",
         r"\d+\s{1,}\d+"                 :   "Need sign between monomials    :",
         r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :",
-        r"^\s*$"                        :   "Void monomial                  :",
+        r"^\s*$"                        :   "There is no monomial in the term",                 
         r"\^[+-]\d+"                    :   "Sign in the exponent           :"
     }
 
@@ -48,7 +48,7 @@ def valid_syntax(string:str):
             else:
                 for error in errors:
                     corrected = re.sub(key, f"\033[41m{error}\033[0m",corrected)
-            print(f"Error: {value}{corrected}")
+            print(f"Error: {value} {corrected}")
 
     return valid
     
