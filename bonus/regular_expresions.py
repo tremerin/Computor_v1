@@ -4,13 +4,13 @@ from decimal import Decimal
 
 def valid_syntax(string:str):
     """
-    Finds and prints syntax errors by underlining the error in red
+    Finds and prints syntax errors by underlining the error in red.
 
     Parameters:
     string (str): One of the terms of an equation in text format.
 
-    Return:
-    value (bool): Returns true or false if the syntax is correct.
+    Returns:
+    bool: Returns true or false if the syntax is correct.
     """
     regexs = {
         r"[^0-9X\*\^\.\+\-\s]"          :   "Invalid character              :",

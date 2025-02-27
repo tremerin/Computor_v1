@@ -59,7 +59,7 @@ def square_root(number, precision = 0.00001):
     if number < 0:
         return "Error: Cannot calculate the square root of a negative number"
     
-    guess = number / 2.0
+    guess = number / 2
     while abs(guess**2 - number) > precision:
         guess = (guess + number / guess) / 2
     
@@ -97,7 +97,13 @@ def second_degree_equation(a:float, b:float, c:float):
 
 def read_monomials(string:str):
     """
-    Decomposes the text string into monomials
+    Decomposes the text string into monomials.
+
+    Parameters:
+    string (str): Equation in text format.
+
+    Returns:
+    list: Returns a list of monomials
     """
     equation_terms = regex.split_equation_terms(string)
     valid_first = regex.valid_syntax(equation_terms[0])
