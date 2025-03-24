@@ -30,25 +30,26 @@ Reset (normal text)	                    \033[0m
 """
 
 equations = [
-            #"5 + 4 * X + X^2= X^2",
+            "5 + 4 * X + X^2= X^2",
             #"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0",
             #"5 * X^0 + 4 * X^1 = 4 * X^0",
             #"8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0",
             "-4 = +4",
             #"42 * X^0 = 42 * X^0",
-            #"1 = 1",
+            "1 = 1",
             #"1 .2 * X^0 + 4 * X^1 = 4 * X^0",
-            "1 * X^0b + 1 *  X^1z = 4 * X^q^0"
+            #"1 * X^0b + 1 *  X^1z = 4 * X^q^0"
             ]
 
 terminal_width = int(shutil.get_terminal_size().columns/2)
 print(terminal_width)
 
-print("\n\n---- COMPUTOR V1 TESTS ----\n")
+header = "COMPUTOR V1 TESTS"
+print(f"\033[32m\033[42m\033[1m{header.center(terminal_width, " ")}\033[0m")
 for equation in equations:
 
     basic_text = f" Testing: {equation} "
-    text = f"\033[32m\033[42m\033[1m{basic_text.center(terminal_width, ".")}\033[0m"
+    text = f"\033[32m\033[44m\033[1m{basic_text.center(terminal_width, ".")}\033[0m"
     print(text)
     subprocess.run(["python", "computor.py", equation])
     print()
