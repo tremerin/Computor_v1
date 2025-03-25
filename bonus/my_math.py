@@ -23,12 +23,12 @@ def square_root(number, precision = 0.00001):
     number is smaller than the specified precision.
 
     Parameters:
-    number (float): The number to find the square root of.
-    precision (float): The precision level to stop the iteration when the difference is smaller than this value. Default is 0.00001.
+        number (float): The number to find the square root of.
+        precision (float): The precision level to stop the iteration when the difference is smaller than this value. Default is 0.00001.
 
     Returns:
-    float: The square root of the given number.
-    If the number is negative, returns an error message.
+        float: The square root of the given number.
+        If the number is negative, returns an error message.
     """
     if number < 0:
         return "Error: Cannot calculate the square root of a negative number"

@@ -76,7 +76,7 @@ def print_reduced_form(reduced_form:list):
         if monomial[0] < 0: sign = "- "
         coefficient = monomial[0]
         if monomial[0] % 1 == 0: coefficient = int(monomial[0])
-        print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "") #
+        print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "")
 
     print("= 0")
 
@@ -109,10 +109,22 @@ def solve_decimals(reduced_form:list):
 
 def computor():
     """
-    Solves first and second degree equations given as monomials in a text string
+    This function reads an equation from the command-line argument, processes it into monomials, 
+    and determines its reduced form. Depending on the polynomial degree, it either solves the 
+    equation or notifies the user if the degree is too high.
+
+    - If the equation has no terms, it assumes all real numbers are solutions.
+    - If the polynomial degree is greater than 2, it cannot be solved.
+    - If it's a quadratic equation (degree 2), it solves using the quadratic formula.
+    - If it's a linear equation (degree 1), it solves for x.
+    - If the equation reduces to a constant (degree 0), it is considered invalid.
+
+    Usage: The equation must be passed as a single command-line argument in monomial form.
+
+    Outputs the reduced equation form, polynomial degree, and solution(s) if solvable.
     """
     if len(sys.argv) != 2:
-        print("Usage: Enter as the only argument the equation expressed in monomials")
+        print("Usage: Provide a single equation as a command-line argument, expressed in monomial form.")
         exit()
 
     monomials = read_monomials(sys.argv[1])
