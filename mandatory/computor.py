@@ -1,6 +1,6 @@
-import math
+import my_math
 import sys  
-import regex # type: ignore
+import regular_expresions as regex
 
 def second_degree_equation(a:float, b:float, c:float):
     """
@@ -9,10 +9,13 @@ def second_degree_equation(a:float, b:float, c:float):
     dis = (b * b) - (4 * c * a)
     if dis <0:
         print("The solution is not a real number")
+    elif dis == 0:
+        x = -b / (2 * a)
+        print(f"x: {x}")
     else:
-        x1 = (-b - math.sqrt(dis)) / (2 * a)
+        x1 = (-b - my_math.square_root(dis)) / (2 * a)
         print(f"x1: {round(x1, 6)}")
-        x2 = (-b + math.sqrt(dis)) / (2 * a)
+        x2 = (-b + my_math.square_root(dis)) / (2 * a)
         print(f"x2: {round(x2, 6)}")
 
 def read_monomials(equation_terms:list):
