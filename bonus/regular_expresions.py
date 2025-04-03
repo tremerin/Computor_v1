@@ -25,7 +25,7 @@ def valid_syntax(string:str):
         r"X\^\d+\.\d*"                  :   "Decimal exponent               :",
         r"X\s*\^\s{1,}"                 :   "Need a exponent                :",
         r"[+-]\s*\*|[+-]\s*$"           :   "No coefficient                 :",
-        r"[+-]\s*[+-]"                  :   "No coefficient                 :",
+        #r"[+-]\s*[+-]"                  :   "No coefficient                 :",
         r"^\s*\*"                       :   "No coefficient                 :",
         r"\d+\. |\s{1,}\."              :   "Decimal part missing           :",
         r"\d+\.\d+\."                   :   "Invalid expresion              :",
@@ -33,7 +33,8 @@ def valid_syntax(string:str):
         r"\d+\s{1,}\d+"                 :   "Need sign between monomials    :",
         r"\d+\*|\*X|\d+[+-]"            :   "Need one space                 :",
         r"^\s*$"                        :   "There is no monomial in the term",                 
-        r"\^[+-]\d+"                    :   "Sign in the exponent           :"
+        r"\^[+-]\d+"                    :   "Sign in the exponent           :",
+        r"X ?\* ?"                      :   "Invalid operation"
     }
 
     valid = True

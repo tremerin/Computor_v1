@@ -22,7 +22,7 @@ def get_monomials(string:str):
 
 def read_monomial(string:str):
     """
-    obtain the sing, the coefficient and exponent of a monomial
+    Obtain the sing, the coefficient and exponent of a monomial
     """
     regexs = [r" ?[+-]? ?", #sign
             r"\d+(\.\d+)?", #coefficient
