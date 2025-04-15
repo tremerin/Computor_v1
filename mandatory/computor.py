@@ -111,7 +111,7 @@ def computor():
             if monomial[1] == 2: a = monomial[0]
             elif monomial[1] == 1: b = monomial[0]
             elif monomial[1] == 0: c = monomial[0]
-        second_degree_equation(a, b, c)
+        print(my_math.second_degree_equation(a, b, c))
     elif reduced_form[-1][1] == 0:
         print("Invalid expresion")
     else:   
