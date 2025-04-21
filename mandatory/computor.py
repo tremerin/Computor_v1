@@ -64,9 +64,9 @@ def equation_reduced_form(monomials:list):
                 reduced_form[i] = reduced_form[j]
                 reduced_form[j] = temp
 
-    for monomial in reduced_form:
-        if monomial[0] == 0:
-            reduced_form.remove(monomial)
+    #for monomial in reduced_form:
+    #    if monomial[0] == 0:
+    #        reduced_form.remove(monomial)
     
     return reduced_form
 
@@ -94,13 +94,14 @@ def computor():
     monomials = read_monomials(sys.argv[1].split(" ="))
 
     reduced_form = equation_reduced_form(monomials)
+    print_reduced_form(reduced_form)
 
     if len(reduced_form) == 0:
-        print("Each real number is a solution")
+        print("Any real number is a solution")
         exit()
 
-    print_reduced_form(reduced_form)
-    print(f"Polynomial degree: {reduced_form[-1][1]}")
+    if reduced_form[-1][1] > 0:
+        print(f"Polynomial degree: {reduced_form[-1][1]}")
 
     if reduced_form[-1][1] > 2:
         print("The polynomial degree is strictly greater than 2, I can't solve.")
@@ -113,7 +114,7 @@ def computor():
             elif monomial[1] == 0: c = monomial[0]
         print(my_math.second_degree_equation(a, b, c))
     elif reduced_form[-1][1] == 0:
-        print("Invalid expresion")
+        print("No solution.")
     else:   
         print(f"The solution is:\n{(reduced_form[0][0] * -1) / reduced_form[1][0]}")
 

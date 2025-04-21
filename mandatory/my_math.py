@@ -104,18 +104,8 @@ def second_degree_equation(a:float, b:float, c:float):
         return f"{text}\n{x1}\n{x2}"
     elif dis == 0:
         x = -b / (2 * a)
-        return f"x: {x}"
+        return f"Discriminant is equal to zero, the solution is:\n{x}"
     else:
-        numerator = -b - square_root(dis)
-        denominator = 2 * a
-        x1 = x2 = ""
-        if numerator % denominator == 0:
-            x1 = round(numerator, 6), round(denominator, 6)
-        else:
-            x1 = irreducible_fraction(round(numerator, 6), round(denominator, 6))
-        numerator = -b + square_root(dis)
-        if numerator % denominator == 0:
-            x2 = round(numerator, 6), round(denominator, 6)
-        else:
-            x2 = irreducible_fraction(round(numerator, 6), round(denominator, 6))
-        return f"x1: {x1}\nx2: {x2}"
+        x1 = round((-b - square_root(dis)) / (2 * a), 6)
+        x2 = round((-b + square_root(dis)) / (2 * a), 6)
+        return f"Discriminant is strictly positive, the two solutions are:\n{x1}\n{x2}"

@@ -40,7 +40,7 @@ def square_root(number, precision = 0.00001):
     return guess
 
 
-def irreducible_fraction(numerator:float, denominator:float, precision:int = 6):
+def irreducible_fraction(numerator:float, denominator:float, precision:int = 6, opt = False):
     """
     Returns the irreducible fraction of the given numerator and denominator.
     
@@ -58,18 +58,21 @@ def irreducible_fraction(numerator:float, denominator:float, precision:int = 6):
     """
     irreducible:str = ""
 
-    if type(numerator) == float or type(denominator) == float:
-        return f"{numerator}/{denominator}"
+    #if type(numerator) == float or type(denominator) == float:
+    #    return f"{numerator}/{denominator}"
     
     divisor = gcd(numerator, denominator)
+    i = ""
+    if opt == True:
+        i = "i"
 
     if numerator % divisor == 0 and denominator % divisor == 0:
         if denominator/divisor == 1:
-            irreducible = f"{numerator/divisor}"
+            irreducible = f"{numerator/divisor}{i}"
         else:
-            irreducible = f"{int(numerator/divisor)}/{int(denominator/divisor)}"
+            irreducible = f"{int(numerator/divisor)}{i}/{int(denominator/divisor)}"
     else:
-        irreducible = f"{round(numerator, precision)}/{round(denominator, precision)}"
+        irreducible = f"{round(numerator, precision)}{i}/{round(denominator, precision)}"
     return irreducible
 
 
@@ -95,7 +98,10 @@ def second_degree_equation(a:float, b:float, c:float):
     """
     dis = (b * b) - (4 * c * a)
     if dis <0:
-        return "The solution is not a real number"
+        text= "Discriminant is strictly negative, the two complex solutions are:"
+        x1 =f"{irreducible_fraction(-b, 2*a)} + {irreducible_fraction(round(square_root(dis*-1), 6), 2*a, 6, True)}"
+        x2 =f"{irreducible_fraction(-b, 2*a)} - {irreducible_fraction(round(square_root(dis*-1), 6), 2*a, 6, True)}"
+        return f"{text}\n{x1}\n{x2}"
     elif dis == 0:
         x = -b / (2 * a)
         return f"x: {x}"
