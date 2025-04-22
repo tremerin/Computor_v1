@@ -4,11 +4,16 @@ def get_monomials(string:str):
     """
     separates and return a member of an equation by monomials
     """
+    monomials = list()
+    if re.match(r"^ ?0 ?$",string):
+        print(" = 0")
+        monomials.append("0 * X^0")
+        return monomials
+
     regex = r" ?[+-]? ?\d+(\.\d+)? \* X\^\d+"
     leng:int = len(string)
-    monomials = list()
     pos_end:int = 0
-
+    
     while len(string) > 0:
         span = re.match(regex, string)
         if span == None:

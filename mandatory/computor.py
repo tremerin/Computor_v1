@@ -2,21 +2,6 @@ import my_math
 import sys  
 import regular_expresions as regex
 
-def second_degree_equation(a:float, b:float, c:float):
-    """
-    Calculate the discriminant and the solution, if possible, of the quadratic equation.
-    """
-    dis = (b * b) - (4 * c * a)
-    if dis <0:
-        print("The solution is not a real number")
-    elif dis == 0:
-        x = -b / (2 * a)
-        print(f"x: {x}")
-    else:
-        x1 = (-b - my_math.square_root(dis)) / (2 * a)
-        print(f"x1: {round(x1, 6)}")
-        x2 = (-b + my_math.square_root(dis)) / (2 * a)
-        print(f"x2: {round(x2, 6)}")
 
 def read_monomials(equation_terms:list):
     """
@@ -78,6 +63,7 @@ def print_reduced_form(reduced_form:list):
     for monomial in reduced_form:
         sign = "+ "
         if monomial[0] < 0: sign = "- "
+        elif monomial is reduced_form[0]: sign = ""
         coefficient = monomial[0]
         if monomial[0] % 1 == 0: coefficient = int(monomial[0])
         print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "")
@@ -96,7 +82,11 @@ def computor():
     reduced_form = equation_reduced_form(monomials)
     print_reduced_form(reduced_form)
 
-    if len(reduced_form) == 0:
+    is_equal = True
+    for monomial in reduced_form:
+        if int(monomial[0]) != 0 or int(monomial[1] != 0):
+            is_equal = False
+    if is_equal:
         print("Any real number is a solution")
         exit()
 
