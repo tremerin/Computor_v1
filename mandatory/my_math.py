@@ -57,9 +57,6 @@ def irreducible_fraction(numerator:float, denominator:float, precision:int = 6, 
         str: The irreducible fraction as a string.
     """
     irreducible:str = ""
-
-    #if type(numerator) == float or type(denominator) == float:
-    #    return f"{numerator}/{denominator}"
     
     divisor = gcd(numerator, denominator)
     i = ""

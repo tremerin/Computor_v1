@@ -48,10 +48,6 @@ def equation_reduced_form(monomials:list):
                 temp = reduced_form[i]
                 reduced_form[i] = reduced_form[j]
                 reduced_form[j] = temp
-
-    #for monomial in reduced_form:
-    #    if monomial[0] == 0:
-    #        reduced_form.remove(monomial)
     
     return reduced_form
 
