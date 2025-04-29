@@ -58,9 +58,10 @@ def print_reduced_form(reduced_form:list):
     print("Reduced form: ", end = "")
     for monomial in reduced_form:
         sign = "+ "
-        if monomial[0] < 0: sign = "- "
-        elif monomial is reduced_form[0]: sign = ""
-        coefficient = monomial[0]
+        if monomial is reduced_form[0]:
+            sign = "-" if monomial[0] < 0 else "" 
+        elif monomial[0] < 0: sign = "- "
+
         if monomial[0] % 1 == 0: coefficient = int(monomial[0])
         print(f"{sign}{abs(coefficient)} * X^{monomial[1]} ", end = "")
     print("= 0")
@@ -80,7 +81,7 @@ def computor():
 
     is_equal = True
     for monomial in reduced_form:
-        if int(monomial[0]) != 0 or int(monomial[1] != 0):
+        if int(monomial[0]) != 0:
             is_equal = False
     if is_equal:
         print("Any real number is a solution")
@@ -101,8 +102,10 @@ def computor():
         print(my_math.second_degree_equation(a, b, c))
     elif reduced_form[-1][1] == 0:
         print("No solution.")
-    else:   
+    elif len(reduced_form) == 2:   
         print(f"The solution is:\n{(reduced_form[0][0] * -1) / reduced_form[1][0]}")
+    else:
+        print("The solutioni is:\n0")
 
     
 if __name__=="__main__":
